@@ -1,16 +1,19 @@
+from datetime import datetime
+
+
 class highlight_content:
     def __init__(
         self,
         preceding_characters,
         color,
-        unix_time,
+        date,
         note,
         highlighted_text,
         highlight_type,
     ):
         self.preceding_characters = preceding_characters
         self.color = color
-        self.unix_time = unix_time
+        self.date = date
         self.note = note
         self.highlighted_text = highlighted_text
         self.highlight_type = highlight_type
@@ -46,6 +49,8 @@ def extract_highlights(file_iterator: iter):
     color = int(color)
     color = color_process(color)
     unix_time = next(file_iterator)
+    unix_time = int(unix_time) / 1000
+    date = datetime.fromtimestamp(unix_time).strftime("%d %B %Y, %H:%M:%S")
     next(file_iterator)
     note = next(file_iterator)
     highlighted_text = next(file_iterator)
@@ -58,7 +63,7 @@ def extract_highlights(file_iterator: iter):
     else:
         highlight_type = "highlight"
     highlight = highlight_content(
-        preceding_characters, color, unix_time, note, highlighted_text, highlight_type
+        preceding_characters, color, date, note, highlighted_text, highlight_type
     )
     return highlight, file_iterator
 
@@ -77,7 +82,7 @@ def color_process(color: int):
 
 
 def get_colour_name(rgb):
-    # Taken and slightly altered from JSch9619 answer at
+    # Taken and slightly altered from JSch9619's answer at
     # https://stackoverflow.com/questions/9694165/convert-rgb-color-to-english-color-name-like-green-with-python
     colors = {
         "Red": (255, 0, 0),
