@@ -14,6 +14,7 @@ import mrexpt_parser
 
 
 def main():
+    # Extracts the mrexpt file content
     with open(sys.argv[1], "r", encoding="utf-8") as file:
         file_content = file.read()
 
@@ -23,6 +24,7 @@ def main():
 
     filename_markdown_extension = f'{sys.argv[1].split(".")[0]}.md'
 
+    # Saves the markdown file
     with open(filename_markdown_extension, "w", encoding="utf-8") as file:
         # Read the entire file content into a variable
         file.write(markdown_content)
