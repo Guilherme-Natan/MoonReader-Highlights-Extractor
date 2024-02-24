@@ -3,3 +3,4 @@ __pycache__/
 .vscode/
 
 *.mrexpt
+*.md
