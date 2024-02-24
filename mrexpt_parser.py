@@ -66,11 +66,11 @@ def extract_highlights(file_iterator: iter):
     note = next(file_iterator)
     highlighted_text = next(file_iterator)
 
-    if next(file_iterator) == 1:
+    if next(file_iterator) == "1":
         highlight_type = "underline"
-    elif next(file_iterator) == 1:
+    elif next(file_iterator) == "1":
         highlight_type = "strikethrough"
-    elif next(file_iterator) == 1:
+    elif next(file_iterator) == "1":
         highlight_type = "squiggly"
     else:
         highlight_type = "highlight"
