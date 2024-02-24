@@ -4,6 +4,7 @@ from datetime import datetime
 class highlight_content:
     def __init__(
         self,
+        chapter,
         preceding_characters,
         color,
         date,
@@ -11,6 +12,7 @@ class highlight_content:
         highlighted_text,
         highlight_type,
     ):
+        self.chapter = chapter
         self.preceding_characters = preceding_characters
         self.color = color
         self.date = date
@@ -40,20 +42,30 @@ def extract_highlights(file_iterator: iter):
     next(file_iterator)
     next(file_iterator)
     next(file_iterator)
+
+    chapter = next(file_iterator)
+    chapter = int(chapter)
+
     next(file_iterator)
-    next(file_iterator)
+
     preceding_characters = next(file_iterator)
     preceding_characters = int(preceding_characters)
+
     next(file_iterator)
+
     color = next(file_iterator)
     color = int(color)
     color = color_process(color)
+
     unix_time = next(file_iterator)
     unix_time = int(unix_time) / 1000
     date = datetime.fromtimestamp(unix_time).strftime("%d %B %Y, %H:%M:%S")
+
     next(file_iterator)
+
     note = next(file_iterator)
     highlighted_text = next(file_iterator)
+
     if next(file_iterator) == 1:
         highlight_type = "underline"
     elif next(file_iterator) == 1:
@@ -62,8 +74,15 @@ def extract_highlights(file_iterator: iter):
         highlight_type = "squiggly"
     else:
         highlight_type = "highlight"
+
     highlight = highlight_content(
-        preceding_characters, color, date, note, highlighted_text, highlight_type
+        chapter,
+        preceding_characters,
+        color,
+        date,
+        note,
+        highlighted_text,
+        highlight_type,
     )
     return highlight, file_iterator
 
@@ -81,7 +100,7 @@ def color_process(color: int):
     return color
 
 
-def get_colour_name(rgb):
+def get_colour_name(rgb: tuple):
     # Taken and slightly altered from JSch9619's answer at
     # https://stackoverflow.com/questions/9694165/convert-rgb-color-to-english-color-name-like-green-with-python
     colors = {
