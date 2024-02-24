@@ -1,6 +1,3 @@
-import webcolors
-
-
 class highlight_content:
     def __init__(
         self,
