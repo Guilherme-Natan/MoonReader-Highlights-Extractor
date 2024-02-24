@@ -18,8 +18,8 @@ def main():
         file_content = file.read()
 
     highlight_list = mrexpt_parser.detect_highlights(file_content)
-    highlight_list_sorted = highlight_sorter.hightlight_sorter(highlight_list)
-    markdown_content = markdown_creator.markdown_creator(highlight_list_sorted)
+    highlight_list_sorted = highlight_sorter.hightlight_sort_by_order(highlight_list)
+    markdown_content = markdown_creator.markdown_creator_by_order(highlight_list_sorted)
 
     filename_markdown_extension = f'{sys.argv[1].split(".")[0]}.md'
 

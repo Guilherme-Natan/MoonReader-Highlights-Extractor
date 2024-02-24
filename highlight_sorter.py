@@ -1,4 +1,17 @@
-def hightlight_sorter(highlight_list: list):
+"""Library of function that sort your highlights
+"""
+
+
+def hightlight_sort_by_order(highlight_list: list):
+    """This funciton sorts the highlights by the order they appear on the text.
+
+    Args:
+        highlight_list (list): The list of highlits
+
+    Returns:
+        The sorted list of highlights
+    """
+    # Gets the sorted list of chapters
     chapter_list = [i.chapter for i in highlight_list]
     chapter_list = list(dict.fromkeys(chapter_list))  # Remove duplicates
     chapter_list.sort()
