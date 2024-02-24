@@ -195,7 +195,7 @@ def get_color_name(rgb: tuple):
         # "Silver": (192, 192, 192),
         "Teal": (0, 128, 128),
         "Orange": (255, 165, 0),
-        "Lavander": (230, 230, 250),
+        "Lavender": (230, 230, 250),
     }
     min_distance = float("inf")
     closest_color = None
