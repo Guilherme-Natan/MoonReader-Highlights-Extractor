@@ -108,9 +108,13 @@ def extract_highlights(file_iterator: iter):
     # Ignores the next line
     next(file_iterator)
 
-    # Gets the note, and the highlighted text
+    # Gets the note content
     note = next(file_iterator)
+
+    # Gets the highlighted text, and substitute <BR> tags with "\n>\n> ",
+    # for compatibility
     highlighted_text = next(file_iterator)
+    highlighted_text = highlighted_text.replace("<BR>", "\n>\n> ")
 
     # Gets the highlight type
     if next(file_iterator) == "1":
