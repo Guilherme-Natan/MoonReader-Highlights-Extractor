@@ -79,22 +79,34 @@ def color_process(color: int):
     return color
 
 
-def closest_colour(requested_colour):
-    min_colours = {}
-    for key, name in webcolors.CSS3_HEX_TO_NAMES.items():
-        r_c, g_c, b_c = webcolors.hex_to_rgb(key)
-        rd = (r_c - requested_colour[0]) ** 2
-        gd = (g_c - requested_colour[1]) ** 2
-        bd = (b_c - requested_colour[2]) ** 2
-        min_colours[(rd + gd + bd)] = name
-    return min_colours[min(min_colours.keys())]
-
-
-def get_colour_name(requested_colour):
-    # Taken and slightly altered from
+def get_colour_name(rgb):
+    # Taken and slightly altered from JSch9619 answer at
     # https://stackoverflow.com/questions/9694165/convert-rgb-color-to-english-color-name-like-green-with-python
-    try:
-        closest_name = webcolors.rgb_to_name(requested_colour)
-    except ValueError:
-        closest_name = closest_colour(requested_colour)
-    return closest_name
+    colors = {
+        "Red": (255, 0, 0),
+        "Lime": (0, 255, 0),
+        "Blue": (0, 0, 255),
+        "Yellow": (255, 255, 0),
+        "Magenta": (255, 0, 255),
+        "Cyan": (0, 255, 255),
+        "Black": (0, 0, 0),
+        "White": (255, 255, 255),
+        # "Grey": (128, 128, 128),
+        "Green": (0, 128, 0),
+        "Maroon": (128, 0, 0),
+        "Navy": (0, 0, 128),
+        "Olive": (128, 128, 0),
+        "Purple": (128, 0, 128),
+        # "Silver": (192, 192, 192),
+        "Teal": (0, 128, 128),
+        "Orange": (255, 165, 0),
+        "Lavander": (230, 230, 250),
+    }
+    min_distance = float("inf")
+    closest_color = None
+    for color, value in colors.items():
+        distance = sum([(i - j) ** 2 for i, j in zip(rgb, value)])
+        if distance < min_distance:
+            min_distance = distance
+            closest_color = color
+    return closest_color
